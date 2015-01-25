@@ -1,0 +1,9 @@
+name: EconAlias
+version: {$version}
+main: net.ghostrealms.EconProvider
+commands:
+  balance:
+    description: show your economy balance
+    aliases: [bal]
+  pay:
+    description: send money to another user
