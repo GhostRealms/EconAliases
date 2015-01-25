@@ -45,7 +45,7 @@ public class EconProvider extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
         }
         getCommand("balance").setExecutor(new BalanceCommand(econ));
-        getCommand("pay").setExecutor(new PayCommand(econ));
+        getCommand("apay").setExecutor(new PayCommand(econ));
     }
     
     @Override

@@ -5,6 +5,6 @@ commands:
   balance:
     description: show your economy balance
     aliases: [bal]
-  econ-pay:
+  apay:
     description: send money to another user
     aliases: [pay]
