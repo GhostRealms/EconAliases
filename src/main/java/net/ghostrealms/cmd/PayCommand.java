@@ -33,6 +33,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 /**
  * Created by River on 1/25/2015.
  */
@@ -46,6 +49,7 @@ public class PayCommand implements CommandExecutor {
     
     @Override
     public boolean onCommand(CommandSender cmdsender, Command cmd, String label, String[] args) {
+        double amount = Double.parseDouble(args[1]);
         if(args.length != 2) {
             cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Oops. Wrong Usage!");
             cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "/pay <user> <amount>");
@@ -57,20 +61,25 @@ public class PayCommand implements CommandExecutor {
                 cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "That user does not have an account.");
                 return false;
             }
-            if(!econ.has(sender, Double.parseDouble(args[1]))) {
+            if(!econ.has(sender, amount)) {
                 cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Insufficient funds.");
                 return false;
             }
-            econ.depositPlayer(receiver, Double.parseDouble(args[1]));
-            econ.withdrawPlayer(sender, Double.parseDouble(args[1]));
-            cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "You sent " + ChatColor.GREEN + "$"
-            + args[1] + ChatColor.YELLOW + " to " + receiver.getName());
+            econ.depositPlayer(receiver, amount);
+            econ.withdrawPlayer(sender, amount);
+            cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "You sent " + ChatColor.GREEN
+            + prettyPrint(amount) + ChatColor.YELLOW + " to " + receiver.getName());
             if(receiver.isOnline()) {
                 Player pl = Bukkit.getPlayer(receiver.getUniqueId());
-                pl.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "You Received " + ChatColor.GREEN + "$"
-                + args[1] + ChatColor.YELLOW + " from " + sender.getName());
+                pl.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "You Received " + ChatColor.GREEN + 
+                 prettyPrint(amount) + ChatColor.YELLOW + " from " + sender.getName());
             }
             return true;
         }
+    }
+
+    public String prettyPrint(double num) {
+        NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
+        return econ.format(num).replace(".00", "");
     }
 }
