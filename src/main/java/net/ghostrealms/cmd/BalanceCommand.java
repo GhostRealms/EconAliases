@@ -32,6 +32,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -49,19 +51,24 @@ public class BalanceCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(args.length == 0) {
             UUID id = UUIDLib.getID(sender.getName());
-            sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "Your Balance: " + ChatColor.GREEN + "$" + econ.getBalance(Bukkit.getOfflinePlayer(id)));
+            sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "Your Balance: " + ChatColor.GREEN + "$" + prettyPrint(econ.getBalance(Bukkit.getOfflinePlayer(id))));
             return true;
         } else {
             for(String s : args) {
                 OfflinePlayer user = Bukkit.getOfflinePlayer(UUIDLib.getID(s));
                 if(econ.hasAccount(user)) {
-                    sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + user.getName() + "'s " + ChatColor.YELLOW + "Balance: " + ChatColor.GREEN + "$" + econ.getBalance(user));
+                    sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + user.getName() + "'s " + ChatColor.YELLOW + "Balance: " + ChatColor.GREEN + "$" + prettyPrint(econ.getBalance(user)));
                 } else {
                     sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + user.getName() + " " + ChatColor.DARK_RED + "does not have an account.");
                 }
             }
             return true;
         }
+    }
+    
+    public String prettyPrint(double num) {
+        NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
+        return econ.format(num).replace(".00", "");
     }
     
 }
