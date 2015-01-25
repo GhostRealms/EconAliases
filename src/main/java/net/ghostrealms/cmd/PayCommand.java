@@ -51,8 +51,8 @@ public class PayCommand implements CommandExecutor {
     public boolean onCommand(CommandSender cmdsender, Command cmd, String label, String[] args) {
         double amount = Double.parseDouble(args[1]);
         if(args.length != 2) {
-            cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Oops. Wrong Usage!");
-            cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "/pay <user> <amount>");
+            cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Oops. Wrong Usage!" + 
+                    ChatColor.YELLOW + "/pay <user> <amount>");
             return false;
         } else {
             OfflinePlayer sender = (OfflinePlayer) cmdsender;
