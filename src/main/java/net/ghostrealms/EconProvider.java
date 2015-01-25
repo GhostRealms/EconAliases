@@ -26,6 +26,7 @@ package net.ghostrealms;
 import net.ghostrealms.cmd.BalanceCommand;
 import net.ghostrealms.cmd.PayCommand;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -45,7 +46,9 @@ public class EconProvider extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
         }
         getCommand("balance").setExecutor(new BalanceCommand(econ));
-        getCommand("apay").setExecutor(new PayCommand(econ));
+        getCommand("pay").setExecutor(new PayCommand(econ));
+        PluginCommand cmd = getServer().getPluginCommand("pay");
+        cmd.setExecutor(new PayCommand(econ));
     }
     
     @Override
