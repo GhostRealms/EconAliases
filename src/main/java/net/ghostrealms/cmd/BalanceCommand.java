@@ -55,18 +55,7 @@ public class BalanceCommand implements CommandExecutor {
             return true;
         } else {
             for(String s : args) {
-                OfflinePlayer user;
-                try {
-                    user = Bukkit.getOfflinePlayer(UUIDLib.getID(s));  
-                } catch (RuntimeException ex) {
-                    sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + s + " " + ChatColor.DARK_RED + "does not have an account.");
-                    user = null;
-                }
-                if(econ.hasAccount(user) && user != null) {
-                    sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + user.getName() + "'s " + ChatColor.YELLOW + "Balance: " + ChatColor.GREEN + prettyPrint(econ.getBalance(user)));
-                } else {
-                    sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + user.getName() + " " + ChatColor.DARK_RED + "does not have an account.");
-                }
+                sender.sendMessage(checkBal(s));
             }
             return true;
         }
@@ -77,4 +66,20 @@ public class BalanceCommand implements CommandExecutor {
         return econ.format(num).replace(".00", "");
     }
     
+    public String checkBal(String userName) {
+        OfflinePlayer player;
+        try {
+            UUID id = UUIDLib.getID(userName);
+            player = Bukkit.getPlayer(id);
+        } catch (RuntimeException ex) {
+            return ChatColor.GRAY + "[Realms] " + ChatColor.RED + userName + " " + ChatColor.DARK_RED + "does not have an account.";
+        }
+        if (!econ.hasAccount(player)) {
+            econ.createPlayerAccount(player);
+        }
+        return ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + userName + "'s " + ChatColor.YELLOW + "Balance: "
+                + ChatColor.GREEN + prettyPrint(econ.getBalance(player));
+    }
+        
 }
+
