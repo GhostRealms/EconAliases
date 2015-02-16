@@ -58,6 +58,13 @@ public class PayCommand implements CommandExecutor {
                 cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Please specify a number for an amount.");
                 return false;
             }
+            if(amount == 0) {
+                cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Please specify a number for an amount.");
+                return true;
+            } else if(amount < 1 && !cmdsender.hasPermission("realms.send-negative")) {
+                cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + "Nice try.. Can't send a Negative Amount!");
+                return true;
+            }
             OfflinePlayer sender = (OfflinePlayer) cmdsender;
             OfflinePlayer receiver = Bukkit.getOfflinePlayer(UUIDLib.getID(args[0]));
             if(!econ.hasAccount(receiver)) {
@@ -80,8 +87,8 @@ public class PayCommand implements CommandExecutor {
             }
             return true;
         } else {
-            cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Oops. Wrong Usage!" + 
-                    ChatColor.YELLOW + "/pay <user> <amount>");
+            cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Oops. Wrong Usage! Try" +
+                    ChatColor.YELLOW + " /pay <user> <amount>");
             return false;
             }
         }
