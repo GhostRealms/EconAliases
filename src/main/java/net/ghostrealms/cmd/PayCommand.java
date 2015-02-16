@@ -61,7 +61,7 @@ public class PayCommand implements CommandExecutor {
             if(amount == 0) {
                 cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Please specify a number for an amount.");
                 return true;
-            } else if(amount < 1 && !cmdsender.hasPermission("realms.send-negative")) {
+            } else if(amount < 1) {
                 cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + "Nice try.. Can't send a Negative Amount!");
                 return true;
             }
