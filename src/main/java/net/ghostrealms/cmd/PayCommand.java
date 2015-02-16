@@ -50,14 +50,14 @@ public class PayCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender cmdsender, Command cmd, String label, String[] args) {
         double amount;
-        try {
-            amount = Double.parseDouble(args[1]);
-        } catch (RuntimeException ex) {
-            cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "invalid number.");
-            return false;
-        }
         
         if(args.length == 2) {
+            try {
+                amount = Double.parseDouble(args[1]);
+            } catch (RuntimeException ex) {
+                cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Please specify a number for an amount.");
+                return false;
+            }
             OfflinePlayer sender = (OfflinePlayer) cmdsender;
             OfflinePlayer receiver = Bukkit.getOfflinePlayer(UUIDLib.getID(args[0]));
             if(!econ.hasAccount(receiver)) {
