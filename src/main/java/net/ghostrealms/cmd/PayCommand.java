@@ -49,12 +49,15 @@ public class PayCommand implements CommandExecutor {
     
     @Override
     public boolean onCommand(CommandSender cmdsender, Command cmd, String label, String[] args) {
-        double amount = Double.parseDouble(args[1]);
-        if(args.length != 2) {
-            cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Oops. Wrong Usage!" + 
-                    ChatColor.YELLOW + "/pay <user> <amount>");
+        double amount;
+        try {
+            amount = Double.parseDouble(args[1]);
+        } catch (RuntimeException ex) {
+            cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "invalid number.");
             return false;
-        } else {
+        }
+        
+        if(args.length == 2) {
             OfflinePlayer sender = (OfflinePlayer) cmdsender;
             OfflinePlayer receiver = Bukkit.getOfflinePlayer(UUIDLib.getID(args[0]));
             if(!econ.hasAccount(receiver)) {
@@ -68,15 +71,20 @@ public class PayCommand implements CommandExecutor {
             econ.depositPlayer(receiver, amount);
             econ.withdrawPlayer(sender, amount);
             cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "You sent " + ChatColor.GREEN
-            + prettyPrint(amount) + ChatColor.YELLOW + " to " + receiver.getName());
+                    + prettyPrint(amount) + ChatColor.YELLOW + " to " + receiver.getName());
             if(receiver.isOnline()) {
                 Player pl = Bukkit.getPlayer(receiver.getUniqueId());
-                pl.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "You Received " + ChatColor.GREEN + 
-                 prettyPrint(amount) + ChatColor.YELLOW + " from " + sender.getName());
+                pl.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "You Received " + ChatColor.GREEN +
+                        prettyPrint(amount) + ChatColor.YELLOW + " from " + sender.getName());
+                return true;
             }
             return true;
+        } else {
+            cmdsender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Oops. Wrong Usage!" + 
+                    ChatColor.YELLOW + "/pay <user> <amount>");
+            return false;
+            }
         }
-    }
 
     public String prettyPrint(double num) {
         NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
