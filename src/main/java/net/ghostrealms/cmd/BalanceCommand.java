@@ -55,7 +55,13 @@ public class BalanceCommand implements CommandExecutor {
             return true;
         } else {
             for(String s : args) {
-                OfflinePlayer user = Bukkit.getOfflinePlayer(UUIDLib.getID(s));
+                OfflinePlayer user;
+                try {
+                    user = Bukkit.getOfflinePlayer(UUIDLib.getID(s));  
+                } catch (RuntimeException ex) {
+                    sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + s + " " + ChatColor.DARK_RED + "does not have an account.");
+                    return false;
+                }
                 if(econ.hasAccount(user)) {
                     sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + user.getName() + "'s " + ChatColor.YELLOW + "Balance: " + ChatColor.GREEN + prettyPrint(econ.getBalance(user)));
                 } else {
