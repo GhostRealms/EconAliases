@@ -58,14 +58,8 @@ public class BalanceCommand implements CommandExecutor {
         for(String s : args) {
             UUID id = UUIDLib.getID(s);
             OfflinePlayer pl = Bukkit.getOfflinePlayer(id);
-            if(pl == null) {
-                sender.sendMessage(pre + ChatColor.DARK_RED + pl.getName() + ChatColor.RED + " does not exist!");
-                continue;
-            }
-            if(!econ.hasAccount(pl)) {
-                econ.createPlayerAccount(pl);
-                sender.sendMessage(pre + ChatColor.GOLD + pl.getName() + ChatColor.YELLOW + "'s balance: " +
-                    ChatColor.GREEN + prettyPrint(econ.getBalance(pl)));
+            if(pl == null || !pl.hasPlayedBefore()) {
+                sender.sendMessage(pre + ChatColor.GOLD + pl.getName() + ChatColor.YELLOW + " does not have an account!");
                 continue;
             }
             sender.sendMessage(pre + ChatColor.GOLD + pl.getName() + ChatColor.YELLOW + "'s balance: " +
