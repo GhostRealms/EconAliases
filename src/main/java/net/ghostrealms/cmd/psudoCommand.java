@@ -16,6 +16,10 @@ public class psudoCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         String cmd = StringUtils.join(args, " ", 1, args.length);
         Player sender = Bukkit.getPlayerExact(args[0]);
+        if(args.length < 2) {
+            sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Invalid Arguments.. Try Again.");
+            return false;
+        }
         if(!commandSender.isOp()) {
             commandSender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + "You are not an operator..");
             return false;

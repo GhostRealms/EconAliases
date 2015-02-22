@@ -19,6 +19,10 @@ public class ChatforCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player player = Bukkit.getPlayerExact(strings[0]);
         String message = StringUtils.join(strings, " ", 1, strings.length);
+        if(strings.length < 2) {
+            commandSender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Invalid Arguments.. Try again.");
+            return false;
+        }
         if(!commandSender.isOp()) {
             commandSender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + "You are not an operator..");
             return false;

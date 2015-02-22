@@ -21,6 +21,10 @@ public class sudo implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
+        if(args.length == 0) {
+            commandSender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.RED + "Invalid Arguments.. Try again.");
+            return false;
+        }
         if(!commandSender.isOp()) {
             commandSender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + "You are not an OP.");
             return false;
