@@ -49,36 +49,33 @@ public class BalanceCommand implements CommandExecutor {
     
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(args.length == 0) {
-            UUID id = UUIDLib.getID(sender.getName());
-            sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "Your Balance: " + ChatColor.GREEN + prettyPrint(econ.getBalance(Bukkit.getOfflinePlayer(id))));
-            return true;
-        } else {
-            for(String s : args) {
-                sender.sendMessage(checkBal(s));
-            }
-            return true;
+        if(args.length <= 0) {
+            OfflinePlayer player = (OfflinePlayer) sender;
+            sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + "Your Balance: " + ChatColor.GREEN+ prettyPrint(econ.getBalance(player)));
+            return false;
         }
+        for(String s : args) {
+            UUID id = UUIDLib.getID(s);
+            OfflinePlayer pl = Bukkit.getOfflinePlayer(id);
+            try {
+                if(econ.hasAccount(pl)) {
+                    sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + pl.getName() + ChatColor.YELLOW + "'s Balance: " 
+                            + ChatColor.GREEN + prettyPrint(econ.getBalance(pl)));
+                } else {
+                    econ.createPlayerAccount(pl);
+                    sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + pl.getName() + ChatColor.YELLOW + "'s Balance: "
+                            + ChatColor.GREEN + prettyPrint(econ.getBalance(pl)));
+                }
+            } catch (RuntimeException ex) {
+                sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + pl.getName() + "does not have an accout.");
+            }
+        }
+        return true;
     }
 
     public String prettyPrint(double num) {
         NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
         return econ.format(num).replace(".00", "");
-    }
-    
-    public String checkBal(String userName) {
-        OfflinePlayer player;
-        try {
-            UUID id = UUIDLib.getID(userName);
-            player = Bukkit.getPlayer(id);
-        } catch (RuntimeException ex) {
-            return ChatColor.GRAY + "[Realms] " + ChatColor.RED + userName + " " + ChatColor.DARK_RED + "does not have an account.";
-        }
-        if (!econ.hasAccount(player)) {
-            return ChatColor.GRAY + "[Realms] " + ChatColor.RED + userName + " " + ChatColor.DARK_RED + "does not have an account.";
-        }
-        return ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + userName + "'s " + ChatColor.YELLOW + "Balance: "
-                + ChatColor.GREEN + prettyPrint(econ.getBalance(player));
     }
         
 }
