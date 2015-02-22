@@ -1,9 +1,16 @@
 name: EconAlias
 version: {$project.version}
-main: net.ghostrealms.EconProvider
+main: net.ghostrealms.RealmsCommands
 commands:
   balance:
     description: show your economy balance
     aliases: [bal]
   pay:
     description: send money to another user
+  chatfor:
+    description: Chat for another player
+    aliases: [chat, cf]
+  sudo:
+    description: Execute a command as the console
+  psudo:
+    description: execute a command as another player.

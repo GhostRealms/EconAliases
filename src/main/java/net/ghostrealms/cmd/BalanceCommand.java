@@ -75,7 +75,7 @@ public class BalanceCommand implements CommandExecutor {
             return ChatColor.GRAY + "[Realms] " + ChatColor.RED + userName + " " + ChatColor.DARK_RED + "does not have an account.";
         }
         if (!econ.hasAccount(player)) {
-            econ.createPlayerAccount(player);
+            return ChatColor.GRAY + "[Realms] " + ChatColor.RED + userName + " " + ChatColor.DARK_RED + "does not have an account.";
         }
         return ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + userName + "'s " + ChatColor.YELLOW + "Balance: "
                 + ChatColor.GREEN + prettyPrint(econ.getBalance(player));
