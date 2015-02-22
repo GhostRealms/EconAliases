@@ -42,6 +42,7 @@ import java.util.UUID;
 public class BalanceCommand implements CommandExecutor {
     
     private Economy econ = null;
+    private final String pre = ChatColor.GRAY + "[Realms] ";
     
     public BalanceCommand(Economy econ) {
         this.econ = econ;
@@ -57,18 +58,18 @@ public class BalanceCommand implements CommandExecutor {
         for(String s : args) {
             UUID id = UUIDLib.getID(s);
             OfflinePlayer pl = Bukkit.getOfflinePlayer(id);
-            try {
-                if(econ.hasAccount(pl)) {
-                    sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + pl.getName() + ChatColor.YELLOW + "'s Balance: " 
-                            + ChatColor.GREEN + prettyPrint(econ.getBalance(pl)));
-                } else {
-                    econ.createPlayerAccount(pl);
-                    sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.GOLD + pl.getName() + ChatColor.YELLOW + "'s Balance: "
-                            + ChatColor.GREEN + prettyPrint(econ.getBalance(pl)));
-                }
-            } catch (RuntimeException ex) {
-                sender.sendMessage(ChatColor.GRAY + "[Realms] " + ChatColor.YELLOW + pl.getName() + "does not have an accout.");
+            if(pl == null) {
+                sender.sendMessage(pre + ChatColor.DARK_RED + pl.getName() + ChatColor.RED + " does not exist!");
+                continue;
             }
+            if(!econ.hasAccount(pl)) {
+                econ.createPlayerAccount(pl);
+                sender.sendMessage(pre + ChatColor.GOLD + pl.getName() + ChatColor.YELLOW + "'s balance: " +
+                    ChatColor.GREEN + prettyPrint(econ.getBalance(pl)));
+                continue;
+            }
+            sender.sendMessage(pre + ChatColor.GOLD + pl.getName() + ChatColor.YELLOW + "'s balance: " +
+                    ChatColor.GREEN + prettyPrint(econ.getBalance(pl)));
         }
         return true;
     }
