@@ -1,4 +1,4 @@
-name: EconAlias
+name: RealmsCommands
 version: {$project.version}
 main: net.ghostrealms.RealmsCommands
 commands:
