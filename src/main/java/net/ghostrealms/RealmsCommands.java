@@ -48,9 +48,7 @@ public class RealmsCommands extends JavaPlugin {
         getCommand("pay").setExecutor(new PayCommand(econ));
         PluginCommand cmd = getServer().getPluginCommand("pay");
         cmd.setExecutor(new PayCommand(econ));
-        getCommand("sudo").setExecutor(new sudo(this));
-        getCommand("psudo").setExecutor(new psudoCommand());
-        getCommand("chatfor").setExecutor(new ChatforCommand());
+        
     }
     
     @Override
