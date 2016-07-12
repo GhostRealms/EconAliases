@@ -39,6 +39,7 @@ import java.util.Locale;
 /**
  * Created by River on 1/25/2015.
  */
+
 public class PayCommand implements CommandExecutor {
     
     private Economy econ = null;
