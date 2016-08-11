@@ -13,8 +13,19 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <include>plugin.yml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>plugin.yml</exclude>
+                </excludes>
             </resource>
         </resources>
+
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -28,6 +39,7 @@
             </plugins>
         </pluginManagement>
     </build>
+
     <repositories>
         <repository>
             <id>spigot-repo</id>
@@ -38,6 +50,7 @@
             <url>http://nexus.hc.to/content/repositories/pub_releases/</url>
         </repository>
     </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -52,4 +65,5 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
 </project>
