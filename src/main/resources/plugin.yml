@@ -13,3 +13,6 @@ commands:
   realms:
     description: Ghost Realms Informational Command
     aliases: []
+  uuid:
+    description: Get a Player's UUID
+    aliases: []
