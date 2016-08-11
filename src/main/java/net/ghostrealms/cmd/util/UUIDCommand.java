@@ -29,11 +29,19 @@ public class UUIDCommand implements CommandExecutor {
             return false;
         } else {
             UUID uuid = UUIDLib.getID(args[0]);
-            p.spigot().sendMessage(new ComponentBuilder("[Realms] ").color(GRAY)
-                    .append(args[0]).color(YELLOW).append("'s UUID: ").color(GOLD)
-                    .append(uuid.toString()).color(GREEN)
-                    .create());
-            return true;
+            if(!uuid.equals(null)) {
+                p.spigot().sendMessage(new ComponentBuilder("[Realms] ").color(GRAY)
+                        .append(args[0]).color(YELLOW).append("'s UUID: ").color(GOLD)
+                        .append(uuid.toString()).color(GREEN)
+                        .create());
+                return true;
+            } else {
+                p.spigot().sendMessage(new ComponentBuilder("[Realms] ").color(GRAY)
+                        .append(args[0]).color(YELLOW).append("'s UUID ").color(GOLD)
+                        .append("does not exist.").color(DARK_RED)
+                        .create());
+                return false;
+            }
         }
     }
 }
