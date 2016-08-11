@@ -40,10 +40,6 @@
         <repository>
             <id>fanciful-mvn-repo</id>
             <url>http://repo.franga2000.com/artifactory/public</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
         </repository>
     </repositories>
     <dependencies>
