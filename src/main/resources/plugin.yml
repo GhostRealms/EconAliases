@@ -7,13 +7,9 @@ commands:
     aliases: [bal]
   pay:
     description: send money to another user
-  chatfor:
-    description: Chat for another player
-    aliases: [chat, cf]
-  sudo:
-    description: Execute a command as the console
-  psudo:
-    description: execute a command as another player.
   setbal:
     description: Set a user's economy balance
+    aliases: []
+  realms:
+    description: Ghost Realms Informational Command
     aliases: []

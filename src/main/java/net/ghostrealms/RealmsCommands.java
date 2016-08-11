@@ -48,7 +48,7 @@ public class RealmsCommands extends JavaPlugin {
         getCommand("pay").setExecutor(new PayCommand(econ));
         PluginCommand cmd = getServer().getPluginCommand("pay");
         cmd.setExecutor(new PayCommand(econ));
-
+        getCommand("realms").setExecutor(new VersionCommand(this));
     }
     
     @Override
