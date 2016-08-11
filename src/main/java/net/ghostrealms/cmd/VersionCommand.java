@@ -1,11 +1,15 @@
 package net.ghostrealms.cmd;
 
-import mkremins.fanciful.FancyMessage;
 import net.ghostrealms.RealmsCommands;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import static net.md_5.bungee.api.ChatColor.GOLD;
+import static net.md_5.bungee.api.ChatColor.GRAY;
+import static net.md_5.bungee.api.ChatColor.YELLOW;
 
 /**
  * Created by River on 8/11/2016.
@@ -20,8 +24,11 @@ public class VersionCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage(new FancyMessage("[Realms] ").color(ChatColor.GRAY).then("EconAlias & RealmsCommand Plugin:").color(ChatColor.YELLOW)
-        .then("Version " + plugin.getDescription().getVersion()).color(org.bukkit.ChatColor.GOLD).toJSONString());
+        Player p = (Player) sender;
+        p.spigot().sendMessage(
+                new ComponentBuilder("[Realms] ").color(GRAY).append("RealmsCommands: ").color(YELLOW)
+                        .append("Version: " + plugin.getDescription().getVersion()).color(GOLD)
+                        .create());
         return true;
     }
 }
