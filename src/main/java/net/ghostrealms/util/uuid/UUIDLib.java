@@ -21,7 +21,7 @@ THE SOFTWARE.
 
  */
 
-package net.ghostrealms;
+package net.ghostrealms.util.uuid;
 
 /**
  * Created by River on 29-Nov-14 00:31.

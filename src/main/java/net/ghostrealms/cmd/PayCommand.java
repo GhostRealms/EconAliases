@@ -23,7 +23,7 @@ THE SOFTWARE.
 
 package net.ghostrealms.cmd;
 
-import net.ghostrealms.UUIDLib;
+import net.ghostrealms.util.uuid.UUIDLib;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
