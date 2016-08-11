@@ -21,7 +21,7 @@ THE SOFTWARE.
 
  */
 
-package net.ghostrealms.cmd;
+package net.ghostrealms.cmd.econ;
 
 import net.ghostrealms.util.uuid.UUIDLib;
 import net.md_5.bungee.api.ChatColor;

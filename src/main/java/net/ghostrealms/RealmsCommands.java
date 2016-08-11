@@ -23,7 +23,10 @@ THE SOFTWARE.
 
 package net.ghostrealms;
 
-import net.ghostrealms.cmd.*;
+import net.ghostrealms.cmd.econ.BalanceCommand;
+import net.ghostrealms.cmd.econ.PayCommand;
+import net.ghostrealms.cmd.util.UUIDCommand;
+import net.ghostrealms.cmd.util.VersionCommand;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.RegisteredServiceProvider;

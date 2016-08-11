@@ -1,4 +1,4 @@
-package net.ghostrealms.cmd;
+package net.ghostrealms.cmd.util;
 
 import net.ghostrealms.RealmsCommands;
 import net.md_5.bungee.api.chat.ComponentBuilder;
