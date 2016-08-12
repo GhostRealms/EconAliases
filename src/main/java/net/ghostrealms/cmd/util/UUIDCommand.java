@@ -15,12 +15,18 @@ import static net.md_5.bungee.api.ChatColor.*;
 /**
  * Created by River on 8/11/2016.
  */
+
 public class UUIDCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player p = (Player) sender;
-        if(args.length != 1) {
+        p.spigot().sendMessage(new ComponentBuilder("[Realms] ").color(GRAY)
+                .append("This command is currently disabled.").color(RED)
+                .create()
+        );
+        return false;
+        /*if(args.length != 1) {
             p.spigot().sendMessage(new ComponentBuilder("[Realms] ").color(GRAY)
                     .append("Oops. Wrong Usage!").color(ChatColor.RED)
                     .append(" Usage:").color(ChatColor.YELLOW)
@@ -29,19 +35,17 @@ public class UUIDCommand implements CommandExecutor {
             return false;
         } else {
             UUID uuid = UUIDLib.getID(args[0]);
-            if(!uuid.equals(null)) {
-                p.spigot().sendMessage(new ComponentBuilder("[Realms] ").color(GRAY)
-                        .append(args[0]).color(YELLOW).append("'s UUID: ").color(GOLD)
-                        .append(uuid.toString()).color(GREEN)
-                        .create());
-                return true;
-            } else {
+            if(uuid.equals(null)) {
                 p.spigot().sendMessage(new ComponentBuilder("[Realms] ").color(GRAY)
                         .append(args[0]).color(YELLOW).append("'s UUID ").color(GOLD)
                         .append("does not exist.").color(DARK_RED)
                         .create());
                 return false;
-            }
-        }
+            } else {
+                p.spigot().sendMessage(new ComponentBuilder("[Realms] ").color(GRAY)
+                        .append(args[0]).color(YELLOW).append("'s UUID: ").color(GOLD)
+                        .append(uuid.toString()).color(GREEN)
+                        .create());
+                return true;*/
     }
 }
